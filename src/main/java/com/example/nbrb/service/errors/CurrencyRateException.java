@@ -1,4 +1,4 @@
-package com.example.nbrb.errors;
+package com.example.nbrb.service.errors;
 
 /**
  * Custom exception for handling errors related to currency rate operations.

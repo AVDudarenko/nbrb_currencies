@@ -1,7 +1,7 @@
 package com.example.nbrb.service;
 
 import com.example.nbrb.domain.entity.CurrencyRate;
-import com.example.nbrb.errors.CurrencyRateException;
+import com.example.nbrb.service.errors.CurrencyRateException;
 import com.example.nbrb.mapper.CurrencyRateMapper;
 import com.example.nbrb.repo.CurrencyRateRepository;
 import com.example.nbrb.rest.CurrencyApiClient;
