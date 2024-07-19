@@ -1,7 +1,6 @@
 package com.example.nbrb.controllers;
 
 import com.example.nbrb.domain.entity.CurrencyRate;
-import com.example.nbrb.service.errors.CurrencyRateException;
 import com.example.nbrb.service.CurrencyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

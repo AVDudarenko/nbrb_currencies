@@ -6,12 +6,10 @@ import com.example.nbrb.repo.CurrencyRateRepository;
 import com.example.nbrb.rest.CurrencyApiClient;
 import com.example.nbrb.rest.CurrencyRateDto;
 import com.example.nbrb.service.errors.CurrencyRateException;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
