@@ -1,35 +1,30 @@
-package com.example.nbrb;
+package com.example.nbrb.domain.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.util.Date;
 
+/**
+ * Represents the exchange rate of a currency on a specific date.
+ */
 @Entity
 @Table(name = "currency_rate", uniqueConstraints = {@UniqueConstraint(columnNames = {"date", "curAbbreviation"})})
 public class CurrencyRate {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonProperty("Cur_ID")
-    private Long curId;
-
-    @JsonProperty("Date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
-    @JsonProperty("Cur_Abbreviation")
+    @Column(length = 10)
     private String curAbbreviation;
 
-    @JsonProperty("Cur_Scale")
     private Integer curScale;
 
-    @JsonProperty("Cur_Name")
+    @Column(length = 100)
     private String curName;
 
-    @JsonProperty("Cur_OfficialRate")
     private Double curOfficialRate;
 
     public Long getId() {
@@ -38,14 +33,6 @@ public class CurrencyRate {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getCurId() {
-        return curId;
-    }
-
-    public void setCurId(Long curId) {
-        this.curId = curId;
     }
 
     public Date getDate() {
