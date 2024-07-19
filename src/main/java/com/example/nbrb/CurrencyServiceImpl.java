@@ -1,42 +1,48 @@
 package com.example.nbrb;
 
 import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.Optional;
 
 @Service
 public class CurrencyServiceImpl implements CurrencyService {
 
+    private static final Logger logger = LoggerFactory.getLogger(CurrencyServiceImpl.class);
     private final CurrencyRateRepository currencyRateRepository;
+    private final CurrencyApiClient currencyApiClient;
 
-    public CurrencyServiceImpl(CurrencyRateRepository currencyRateRepository) {
+    public CurrencyServiceImpl(CurrencyRateRepository currencyRateRepository, CurrencyApiClient currencyApiClient) {
         this.currencyRateRepository = currencyRateRepository;
+        this.currencyApiClient = currencyApiClient;
     }
 
     @Transactional
     public boolean loadRatesForDate(String date) {
-        RestTemplate restTemplate = new RestTemplate();
-        String url = "https://api.nbrb.by/exrates/rates?ondate=" + date + "&periodicity=0";
-        CurrencyRate[] rates = restTemplate.getForObject(url, CurrencyRate[].class);
-
-        if (rates != null && rates.length > 0) {
-            for (CurrencyRate rate : rates) {
-                saveOrUpdateRate(rate);
+        try {
+            CurrencyRate[] rates = currencyApiClient.getRatesForDate(date);
+            if (rates != null && rates.length > 0) {
+                for (CurrencyRate rate : rates) {
+                    saveOrUpdateRate(rate);
+                }
+                return true;
             }
-            return true;
+        } catch (Exception e) {
+            logger.error("Failed to load rates for date: " + date, e);
         }
         return false;
     }
 
     public CurrencyRate getRateForDateAndCurrency(String date, String currencyCode) {
-        RestTemplate restTemplate = new RestTemplate();
-        String url = "https://api.nbrb.by/exrates/rates/" + currencyCode + "?parammode=2&ondate=" + date;
-        CurrencyRate rate = restTemplate.getForObject(url, CurrencyRate.class);
-
-        if (rate != null) {
-            return saveOrUpdateRate(rate);
+        try {
+            CurrencyRate rate = currencyApiClient.getRateForDateAndCurrency(date, currencyCode);
+            if (rate != null) {
+                return saveOrUpdateRate(rate);
+            }
+        } catch (Exception e) {
+            logger.error("Failed to get rate for date: " + date + " and currency code: " + currencyCode, e);
         }
         return null;
     }
