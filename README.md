@@ -80,3 +80,13 @@ Tests are written using JUnit and Mockito. To run the tests, execute the followi
 ```bash
 mvn test
 ```
+
+## Postman Collection
+
+A Postman collection is provided to test the endpoints. You can import the collection into Postman using the following steps:
+
+1. **Download the [Postman collection](nbrb.postman_collection.json)**.
+2. Open Postman.
+3. Click on `Import` in the top left corner.
+4. Select `Upload Files` and choose the `nbrb.postman_collection.json` file.
+5. Click `Import`.
