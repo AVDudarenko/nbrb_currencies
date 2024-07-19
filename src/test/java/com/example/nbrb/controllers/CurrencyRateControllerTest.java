@@ -18,6 +18,7 @@ import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @WebMvcTest(CurrencyRateController.class)
 class CurrencyRateControllerTest {
@@ -55,7 +56,8 @@ class CurrencyRateControllerTest {
         mockMvc.perform(get("/api/currency-rate/load/2023-01-10")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isInternalServerError())
-                .andExpect(content().string("Error occurred while loading rates for date: 2023-01-10"));
+                .andExpect(jsonPath("$.message").value("Error"))
+                .andExpect(jsonPath("$.timestamp").exists());
     }
 
     @Test
