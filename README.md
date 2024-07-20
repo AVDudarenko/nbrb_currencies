@@ -50,8 +50,8 @@ handles specific exceptions like CurrencyRateException and general exceptions, p
 1. **Clone the repository**:
 
 ```bash
-git clone https://github.com/your-username/currency-rate-microservice.git
-cd currency-rate-microservice
+git clone https://github.com/AVDudarenko/nbrb_currencies.git
+cd nbrb_currencies
 ```
 
 2. **Build the project**:
